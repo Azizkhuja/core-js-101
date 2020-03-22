@@ -242,11 +242,16 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const int_up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  const int_down = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  return str.split('').map((strl) => {
-    if (/[a-z]/ig.test(strl)) return int_down.charAt(int_up.indexOf(strl));
-    return strl;
+  const alfabet = 'abcdefghijklmnopqrstuvwxyz';
+  const Alfabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return str.split('').map((l) => {
+    if (/[A-Z]/.test(l)) {
+      return Alfabet.charAt((Alfabet.indexOf(l) + 13) % 26);
+    }
+    if (/[a-z]/.test(l)) {
+      return alfabet.charAt((alfabet.indexOf(l) + 13) % 26);
+    }
+    return l;
   }).join('');
 }
 
@@ -292,24 +297,14 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(value) {
-  const Cards = {
-    A: 0,
-    J: 10,
-    Q: 11,
-    K: 12,
-  };
-  const Suits = {
-    '♣': 0,
-    '♦': 1,
-    '♥': 2,
-    '♠': 3,
-  };
-  const suitRank = Suits[value.slice(-1)] * 13;
-  const card = value.slice(0, -1);
-  const cardValue = /\d/.test(card) ? card - 1 : Cards[card];
-  return cardValue + suitRank;
-}
+const getCardId = (a) => {
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return deck.indexOf(a);
+};
 
 
 module.exports = {
