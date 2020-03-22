@@ -51,7 +51,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-  return `${firstName} ${lastName}`;
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 
@@ -142,7 +142,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  return str.slice(1,-1);
+  return str.slice(1, -1);
 }
 
 
@@ -203,27 +203,26 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  var leftTop = '┌';
-  var top = '─';
-  var rightTop = '┐';
-  var leftBottom = '└';
-  var bottom = '─';
-  var rightBottom = '┘';
-  var leftSide = '│';
-  var rightSide = '│';
-  var res;
-
-  for (var i = 0; i < height; i += 1) {
+  const leftTop = '┌';
+  const top = '─';
+  const rightTop = '┐';
+  const leftBottom = '└';
+  const bottom = '─';
+  const rightBottom = '┘';
+  const leftSide = '│';
+  const rightSide = '│';
+  let res;
+  for (let i = 0; i < height; i += 1) {
     if (i === 0) {
-      res = "".concat(leftTop).concat(top.repeat(width - 2)).concat(rightTop, "\n");
+      res = `${leftTop}${top.repeat(width - 2)}${rightTop}\n`;
     } else if (i < height - 1) {
-      res = "".concat(res).concat(leftSide).concat(' '.repeat(width - 2)).concat(rightSide, "\n");
+      res = `${res}${leftSide}${(' ').repeat(width - 2)}${rightSide}\n`;
     } else {
-      res = "".concat(res).concat(leftBottom).concat(bottom.repeat(width - 2)).concat(rightBottom, "\n");
+      res = `${res}${leftBottom}${bottom.repeat(width - 2)}${rightBottom}\n`;
     }
   }
-
   return res;
+  // throw new Error('Not implemented');
 }
 
 
